@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haircutzforbreakupz — Test Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #e8e8e8; font-family: 'Barlow', sans-serif; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; border-bottom: 1px solid #222; }
+    nav .logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: #c8a84e; }
+    .hero { text-align: center; padding: 120px 24px 80px; }
+    .hero .tag { font-size: 13px; font-weight: 600; color: #c8a84e; letter-spacing: 4px; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 0.95; letter-spacing: 3px; }
+    .hero h1 span { color: #c8a84e; }
+    .hero p { margin-top: 24px; color: #888; font-size: 18px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 800px; margin: 0 auto; padding: 0 24px 80px; }
+    .svc { background: #141414; border: 1px solid #222; padding: 28px 16px; text-align: center; }
+    .svc .icon { font-size: 28px; margin-bottom: 8px; }
+    .svc .name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
+    .svc .price { color: #c8a84e; font-size: 18px; font-weight: 600; margin-top: 6px; }
+    footer { border-top: 1px solid #222; padding: 32px; text-align: center; font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">HAIRCUTZFORBREAKUPZ</div>
+  </nav>
+
+  <div class="hero">
+    <div class="tag">RIVERSIDE, MO</div>
+    <h1>FRESH CUTS.<br><span>CLEAN FADES.</span></h1>
+    <p>Kansas City's go-to shop for precision fades, beard work, and that post-breakup glow-up.</p>
+  </div>
+
+  <div class="services">
+    <div class="svc"><div class="icon">✂️</div><div class="name">MEN'S HAIRCUT</div><div class="price">$30</div></div>
+    <div class="svc"><div class="icon">💈</div><div class="name">SKIN FADE</div><div class="price">$35</div></div>
+    <div class="svc"><div class="icon">🧔</div><div class="name">BEARD TRIM</div><div class="price">$15</div></div>
+    <div class="svc"><div class="icon">⭐</div><div class="name">HAIRCUT + BEARD</div><div class="price">$40</div></div>
+    <div class="svc"><div class="icon">👦</div><div class="name">KID'S CUT</div><div class="price">$20</div></div>
+    <div class="svc"><div class="icon">🪒</div><div class="name">HOT TOWEL SHAVE</div><div class="price">$25</div></div>
+  </div>
+
+  <footer>Website by NovaShift Automations ⚡</footer>
+
+  <!--
+    ╔══════════════════════════════════════════════════════╗
+    ║  THIS IS ALL THE CLIENT ADDS TO THEIR SITE:         ║
+    ║  One script tag. That's it.                         ║
+    ╚══════════════════════════════════════════════════════╝
+  -->
+  <script
+    src="http://localhost:5000/widget.js"
+    data-client="haircutzforbreakupz"
+    data-accent="#c8a84e"
+    data-delay="3000"
+  ></script>
+</body>
+</html>

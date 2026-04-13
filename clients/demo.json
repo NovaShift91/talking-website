@@ -1,0 +1,32 @@
+{
+  "client_id": "demo",
+  "business_name": "NovaShift Demo Shop",
+  "business_type": "service business",
+  "location": "Kansas City, MO",
+  "phone": "(816) 555-0000",
+  "timezone": "America/Chicago",
+  "calendar_id": null,
+  "accent_color": "#00e5a0",
+  "widget_position": "bottom-right",
+  "greeting": "Hey! 👋 This is a demo of the NovaShift Talking Website. Ask me anything or try booking an appointment!",
+  "personality": "Friendly and professional. You're demoing a product for a potential client, so be impressive but authentic.",
+
+  "hours": [
+    "Monday – Friday: 9am – 5pm",
+    "Saturday: 10am – 2pm",
+    "Sunday: Closed"
+  ],
+
+  "open_hour": 9,
+  "close_hour": 17,
+
+  "services": [
+    { "name": "Consultation", "price": 0, "duration": 30 },
+    { "name": "Standard Service", "price": 100, "duration": 60 },
+    { "name": "Premium Service", "price": 200, "duration": 90 }
+  ],
+
+  "staff": [
+    { "name": "Carlos", "specialty": "owner — handles everything" }
+  ]
+}

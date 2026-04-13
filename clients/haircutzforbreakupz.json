@@ -1,0 +1,38 @@
+{
+  "client_id": "haircutzforbreakupz",
+  "business_name": "Haircutzforbreakupz",
+  "business_type": "barbershop",
+  "location": "Riverside, MO",
+  "phone": "(816) 555-0199",
+  "timezone": "America/Chicago",
+  "calendar_id": null,
+  "accent_color": "#c8a84e",
+  "widget_position": "bottom-right",
+  "greeting": "What's good! 👋 Looking to book a cut, or got a question about the shop?",
+  "personality": "Friendly, casual, confident — like talking to someone at the shop. Light humor is fine. Not corporate. Match the vibe of a KC barbershop.",
+
+  "hours": [
+    "Tuesday – Friday: 10am – 7pm",
+    "Saturday: 9am – 4pm",
+    "Sunday & Monday: Closed"
+  ],
+
+  "open_hour": 10,
+  "close_hour": 19,
+
+  "services": [
+    { "name": "Men's Haircut", "price": 30, "duration": 30 },
+    { "name": "Skin Fade", "price": 35, "duration": 45 },
+    { "name": "Beard Trim", "price": 15, "duration": 15 },
+    { "name": "Haircut + Beard Combo", "price": 40, "duration": 45 },
+    { "name": "Kid's Cut", "price": 20, "duration": 20 },
+    { "name": "Line Up / Edge Up", "price": 15, "duration": 15 },
+    { "name": "Hot Towel Shave", "price": 25, "duration": 30 }
+  ],
+
+  "staff": [
+    { "name": "Marco", "specialty": "owner — specializes in fades and designs" },
+    { "name": "DeShawn", "specialty": "great with all styles, fastest in the shop" },
+    { "name": "Luis", "specialty": "beard work and hot towel shaves" }
+  ]
+}
