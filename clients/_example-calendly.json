@@ -1,0 +1,36 @@
+{
+  "_README": "EXAMPLE CONFIG — copy and fill in for a Calendly-connected client",
+
+  "client_id": "example-calendly-client",
+  "business_name": "Example Business",
+  "business_type": "consulting",
+  "location": "Kansas City, MO",
+  "phone": "(816) 555-0000",
+  "timezone": "America/Chicago",
+
+  "calendar_type": "calendly",
+  "calendly_token": "YOUR_CALENDLY_PERSONAL_ACCESS_TOKEN",
+  "calendly_event_type": "https://api.calendly.com/event_types/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+
+  "accent_color": "#00e5a0",
+  "widget_position": "bottom-right",
+  "greeting": "Hey! How can I help you today?",
+  "personality": "Friendly and professional.",
+
+  "hours": [
+    "Monday – Friday: 9am – 5pm",
+    "Saturday – Sunday: Closed"
+  ],
+
+  "open_hour": 9,
+  "close_hour": 17,
+
+  "services": [
+    { "name": "Consultation", "price": 0, "duration": 30 },
+    { "name": "Full Session", "price": 150, "duration": 60 }
+  ],
+
+  "staff": [
+    { "name": "Owner", "specialty": "all services" }
+  ]
+}

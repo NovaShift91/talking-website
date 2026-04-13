@@ -43,17 +43,26 @@ AI-powered chat widget that reads a client's site info, answers customer questio
 
 ```
 talking-website/
-├── app.py                    # Flask backend
+├── app.py                    # Flask backend (uses calendar adapters)
 ├── Procfile                  # Railway/gunicorn startup
 ├── requirements.txt          # Python dependencies
 ├── .env.example              # Environment variable template
+├── calendars/                # Calendar provider adapters
+│   ├── __init__.py           # Factory — routes to right provider
+│   ├── base.py               # Abstract interface all adapters implement
+│   ├── demo_cal.py           # Simulated slots (no API needed)
+│   ├── google_cal.py         # Google Calendar API
+│   ├── calendly_cal.py       # Calendly Scheduling API
+│   └── outlook_cal.py        # Microsoft Graph API
 ├── clients/                  # Client configurations
 │   ├── demo.json
-│   └── haircutzforbreakupz.json
+│   ├── haircutzforbreakupz.json
+│   ├── _example-calendly.json
+│   └── _example-outlook.json
 ├── static/
 │   └── widget.js             # Embeddable chat widget
 ├── test-page.html            # Local test page
-└── service-account.json      # Google Calendar (optional, not committed)
+└── service-account.json      # Google Calendar key (optional, not committed)
 ```
 
 ---
@@ -170,42 +179,85 @@ Replace `localhost:5000` with your Railway URL in script tags:
 
 ---
 
-## Google Calendar Integration (Optional)
+## Calendar Integration
 
-The widget works in demo mode without Calendar. To enable real booking:
+The widget works in demo mode out of the box — no API keys needed.
+To connect a real calendar, set `calendar_type` in the client's JSON config.
 
-### 1. Create a Google Cloud project
+### Supported Providers
 
-- Go to [console.cloud.google.com](https://console.cloud.google.com)
-- Create a project: "NovaShift Talking Website"
-- Enable the **Google Calendar API**
+| Provider    | `calendar_type` | Best For                              |
+|-------------|-----------------|---------------------------------------|
+| Demo        | `"demo"`        | Testing, demos, no-calendar clients   |
+| Google      | `"google"`      | Most small businesses                 |
+| Calendly    | `"calendly"`    | Clients already on Calendly           |
+| Outlook     | `"outlook"`     | Contractors, offices on Office 365    |
 
-### 2. Create a service account
+### Google Calendar Setup
 
-- IAM & Admin → Service Accounts → Create
-- Name: `talking-website`
-- Download the JSON key → save as `service-account.json` in project root
-
-### 3. Share the client's calendar
-
-The client shares their Google Calendar with the service account email
-(something like `talking-website@your-project.iam.gserviceaccount.com`)
-with **"Make changes to events"** permission.
-
-### 4. Add calendar ID to client config
-
-In `clients/haircutzforbreakupz.json`:
+1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+   → Create project → Enable **Google Calendar API**
+2. IAM & Admin → Service Accounts → Create → Download JSON key
+   → save as `service-account.json` in project root
+3. Client shares their Google Calendar with the service account email
+   (`talking-website@your-project.iam.gserviceaccount.com`)
+   with **"Make changes to events"** permission
+4. Update client config:
 ```json
 {
+  "calendar_type": "google",
   "calendar_id": "client-calendar-id@group.calendar.google.com"
 }
 ```
 
-### 5. Upload service account to Railway
+### Calendly Setup
 
-Railway → service → Variables:
-- Upload `service-account.json` as a file, OR
-- Base64-encode it and decode on startup (see app.py comments)
+1. Client needs a paid Calendly plan (Standard+)
+2. Client generates a Personal Access Token at
+   calendly.com → Integrations → API & Webhooks
+3. Get their event type URI: call `GET /event_types` with the token
+4. Update client config:
+```json
+{
+  "calendar_type": "calendly",
+  "calendly_token": "their-personal-access-token",
+  "calendly_event_type": "https://api.calendly.com/event_types/XXXX"
+}
+```
+
+### Outlook / Office 365 Setup
+
+1. Register an app at [portal.azure.com](https://portal.azure.com)
+   → App registrations → Grant `Calendars.ReadWrite` permissions
+2. Create a client secret
+3. Update client config:
+```json
+{
+  "calendar_type": "outlook",
+  "outlook_tenant_id": "azure-tenant-id",
+  "outlook_client_id": "app-client-id",
+  "outlook_client_secret": "app-secret",
+  "outlook_user_email": "client@theirbusiness.com"
+}
+```
+
+### Adding a New Provider
+
+Create a new file in `calendars/` that extends `CalendarAdapter`:
+```python
+from calendars.base import CalendarAdapter, TimeSlot, BookingResult
+
+class SquareAdapter(CalendarAdapter):
+    def check_availability(self, date_str): ...
+    def create_booking(self, service, start_time, ...): ...
+    def cancel_booking(self, event_id): ...
+```
+Then register it in `calendars/__init__.py`:
+```python
+ADAPTERS["square"] = SquareAdapter
+```
+
+Example configs for each provider are in `clients/_example-*.json`.
 
 ---
 

@@ -5,6 +5,7 @@
   "location": "Riverside, MO",
   "phone": "(816) 555-0199",
   "timezone": "America/Chicago",
+  "calendar_type": "demo",
   "calendar_id": null,
   "accent_color": "#c8a84e",
   "widget_position": "bottom-right",

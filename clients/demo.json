@@ -5,6 +5,7 @@
   "location": "Kansas City, MO",
   "phone": "(816) 555-0000",
   "timezone": "America/Chicago",
+  "calendar_type": "demo",
   "calendar_id": null,
   "accent_color": "#00e5a0",
   "widget_position": "bottom-right",

@@ -94,11 +94,12 @@
     #ns-chat-messages::-webkit-scrollbar { width: 5px; }
     #ns-chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
-    .ns-msg { display: flex; }
+    .ns-msg { display: flex; min-width: 0; overflow: hidden; }
     .ns-msg.ns-user { justify-content: flex-end; }
     .ns-msg.ns-bot { justify-content: flex-start; }
     .ns-msg .ns-bubble {
-      max-width: 82%; padding: 10px 14px; font-size: 14px; line-height: 1.5; white-space: pre-wrap;
+      max-width: 82%; padding: 10px 14px; font-size: 14px; line-height: 1.5;
+      white-space: pre-wrap; overflow-wrap: break-word; word-break: break-word;
     }
     .ns-msg.ns-bot .ns-bubble { background: #1a1a2e; color: #e8e8e8; border-radius: 14px 14px 14px 4px; }
     .ns-msg.ns-user .ns-bubble { background: ${ACCENT}; color: #0a0a0a; border-radius: 14px 14px 4px 14px; font-weight: 500; }

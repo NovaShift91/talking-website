@@ -1,0 +1,41 @@
+{
+  "_README": "EXAMPLE CONFIG — copy and fill in for an Outlook/Office 365 client",
+
+  "client_id": "example-outlook-client",
+  "business_name": "Example Contractor",
+  "business_type": "plumbing",
+  "location": "Kansas City, MO",
+  "phone": "(816) 555-0000",
+  "timezone": "America/Chicago",
+
+  "calendar_type": "outlook",
+  "outlook_tenant_id": "YOUR_AZURE_TENANT_ID",
+  "outlook_client_id": "YOUR_APP_CLIENT_ID",
+  "outlook_client_secret": "YOUR_APP_CLIENT_SECRET",
+  "outlook_user_email": "owner@theirbusiness.com",
+  "calendar_id": "",
+
+  "accent_color": "#f59e0b",
+  "widget_position": "bottom-right",
+  "greeting": "Hey there! Need a plumber or want to schedule service?",
+  "personality": "Blue-collar authentic, direct, trustworthy.",
+
+  "hours": [
+    "Monday – Friday: 8am – 5pm",
+    "Saturday: 9am – 1pm",
+    "Sunday: Emergency only"
+  ],
+
+  "open_hour": 8,
+  "close_hour": 17,
+
+  "services": [
+    { "name": "Service Call", "price": 89, "duration": 60 },
+    { "name": "Drain Cleaning", "price": 150, "duration": 90 },
+    { "name": "Estimate", "price": 0, "duration": 30 }
+  ],
+
+  "staff": [
+    { "name": "Owner", "specialty": "all services" }
+  ]
+}
