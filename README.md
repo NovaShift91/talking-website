@@ -128,9 +128,15 @@ git push -u origin main
 Click into the new service → **Variables** tab → **+ New Variable**:
 
 ```
-ANTHROPIC_API_KEY = sk-ant-api03-xxxxxxxxxxxx
-ANTHROPIC_MODEL   = claude-sonnet-4-20250514
+ANTHROPIC_API_KEY    = sk-ant-api03-xxxxxxxxxxxx
+ANTHROPIC_MODEL      = claude-sonnet-4-20250514
+WIDGET_IMPORT_SECRET = <shared secret with the NovaShift main app>
 ```
+
+> `WIDGET_IMPORT_SECRET` is only required for lead-capture clients (e.g.
+> `novashift`). It is sent as the `X-Widget-Secret` header when the backend
+> POSTs qualified leads to the NovaShift main app. It must match the value the
+> main app expects.
 
 ### 4. Add a domain
 
@@ -167,6 +173,37 @@ Replace `localhost:5000` with your Railway URL in script tags:
   data-client="new-client-id"
 ></script>
 ```
+
+### Sales / Lead-Capture Clients
+
+Most clients use the booking-assistant prompt (services, staff, calendar). A
+client can instead run as a **sales assistant** that answers questions from a
+knowledge base and pushes qualified leads to an external app. Set `"mode":
+"sales"` in the config and provide structured KB fields (`one_liner`, `tone`,
+`audience`, `pricing_tiers`, `faq`, `constraints`). See `clients/novashift.json`
+for the reference example.
+
+To enable lead capture, add a `lead_capture` block:
+
+```json
+"lead_capture": {
+  "enabled": true,
+  "endpoint": "https://example.com/.netlify/functions/leads-from-widget",
+  "secret_env": "WIDGET_IMPORT_SECRET",
+  "intent_signals": ["..."],
+  "offer_message": "Want me to send you a custom rundown over email?",
+  "confirm_message": "Got it. We'll reach out within 24 hours."
+}
+```
+
+When enabled, the backend exposes a `submit_lead` tool (Anthropic tool-use) to
+the model. After the visitor agrees and gives a name + valid email, the model
+calls the tool and the backend POSTs the lead to `endpoint` with the
+`X-Widget-Secret` header (read from `secret_env`). The widget always confirms
+to the visitor that someone will be in touch — even if the POST fails, the
+failure is logged for manual follow-up rather than shown to the visitor. The
+widget generates a per-page-load `session_id` (UUID) and sends it with each
+chat request so leads can be deduped/correlated server-side.
 
 ### Widget Data Attributes
 

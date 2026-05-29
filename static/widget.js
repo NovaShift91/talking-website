@@ -20,6 +20,17 @@
   const POSITION = scriptTag.getAttribute("data-position") || "bottom-right";
   const AUTO_OPEN_DELAY = parseInt(scriptTag.getAttribute("data-delay") || "5000", 10);
 
+  // --- Session ID (one UUID per page load, used to dedupe leads server-side) ---
+  const SESSION_ID = (function () {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    // Fallback UUID v4 for older browsers
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  })();
+
   // --- State ---
   let isOpen = false;
   let messages = [];
@@ -231,7 +242,7 @@
       const res = await fetch(API_BASE + "/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Client-ID": CLIENT_ID },
-        body: JSON.stringify({ messages: messages })
+        body: JSON.stringify({ messages: messages, session_id: SESSION_ID })
       });
       const data = await res.json();
       messages.push({ role: "assistant", content: data.reply || "Sorry, I hit a snag. Try again?" });
