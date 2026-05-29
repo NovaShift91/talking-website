@@ -100,7 +100,7 @@
     #ns-chat-close:hover { color: #aaa; }
 
     #ns-chat-messages {
-      flex: 1; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 10px;
+      flex: 1; min-height: 0; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 10px;
     }
     #ns-chat-messages::-webkit-scrollbar { width: 5px; }
     #ns-chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
