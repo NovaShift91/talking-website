@@ -12,6 +12,11 @@
 (function () {
   "use strict";
 
+  // Bump this string whenever widget.js changes. Lets you confirm in the
+  // browser console exactly which version a site has loaded.
+  var WIDGET_VERSION = "2026.05.29-scrollfix";
+  console.info("[NovaShift widget] loaded version " + WIDGET_VERSION);
+
   // --- Grab config from script tag ---
   const scriptTag = document.currentScript;
   const API_BASE = scriptTag.src.replace(/\/widget\.js.*$/, "");
