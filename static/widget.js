@@ -14,7 +14,7 @@
 
   // Bump this string whenever widget.js changes. Lets you confirm in the
   // browser console exactly which version a site has loaded.
-  var WIDGET_VERSION = "2026.05.29-scrollfix2";
+  var WIDGET_VERSION = "2026.05.29-scrollfix3";
   console.info("[NovaShift widget] loaded version " + WIDGET_VERSION);
 
   // --- Grab config from script tag ---
@@ -113,7 +113,7 @@
     #ns-chat-messages::-webkit-scrollbar { width: 5px; }
     #ns-chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
-    .ns-msg { display: flex; min-width: 0; overflow: hidden; }
+    .ns-msg { display: flex; flex: 0 0 auto !important; min-width: 0; overflow: hidden; }
     .ns-msg.ns-user { justify-content: flex-end; }
     .ns-msg.ns-bot { justify-content: flex-start; }
     .ns-msg .ns-bubble {
