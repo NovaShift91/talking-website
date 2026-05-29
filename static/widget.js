@@ -14,7 +14,7 @@
 
   // Bump this string whenever widget.js changes. Lets you confirm in the
   // browser console exactly which version a site has loaded.
-  var WIDGET_VERSION = "2026.05.29-scrollfix";
+  var WIDGET_VERSION = "2026.05.29-scrollfix2";
   console.info("[NovaShift widget] loaded version " + WIDGET_VERSION);
 
   // --- Grab config from script tag ---
@@ -80,11 +80,11 @@
       position: fixed; ${POSITION === "bottom-left" ? "left" : "right"}: 24px; bottom: 100px;
       width: 380px; max-width: calc(100vw - 48px); height: 520px; max-height: calc(100vh - 140px);
       background: #111; border: 1px solid #2a2a2a; border-radius: 16px;
-      display: none; flex-direction: column; overflow: hidden;
+      display: none; flex-direction: column !important; overflow: hidden !important;
       box-shadow: 0 12px 48px rgba(0,0,0,0.6); z-index: 99998;
       animation: ns-slide-up 0.3s ease-out;
     }
-    #ns-chat-window.ns-open { display: flex; }
+    #ns-chat-window.ns-open { display: flex !important; }
 
     @keyframes ns-slide-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -105,7 +105,10 @@
     #ns-chat-close:hover { color: #aaa; }
 
     #ns-chat-messages {
-      flex: 1; min-height: 0; overflow-y: auto; padding: 16px 14px 8px; display: flex; flex-direction: column; gap: 10px;
+      flex: 1 1 auto !important; min-height: 0 !important; height: auto !important;
+      overflow-y: auto !important; overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+      padding: 16px 14px 8px; display: flex !important; flex-direction: column !important; gap: 10px;
     }
     #ns-chat-messages::-webkit-scrollbar { width: 5px; }
     #ns-chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
