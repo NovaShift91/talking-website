@@ -14,7 +14,7 @@
 
   // Bump this string whenever widget.js changes. Lets you confirm in the
   // browser console exactly which version a site has loaded.
-  var WIDGET_VERSION = "2026.05.29-scrollfix3";
+  var WIDGET_VERSION = "2026.05.29-scrollfix4";
   console.info("[NovaShift widget] loaded version " + WIDGET_VERSION);
 
   // --- Grab config from script tag ---
@@ -108,7 +108,7 @@
       flex: 1 1 auto !important; min-height: 0 !important; height: auto !important;
       overflow-y: auto !important; overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
-      padding: 16px 14px 8px; display: flex !important; flex-direction: column !important; gap: 10px;
+      padding: 16px 14px 14px; display: flex !important; flex-direction: column !important; gap: 10px;
     }
     #ns-chat-messages::-webkit-scrollbar { width: 5px; }
     #ns-chat-messages::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
@@ -206,6 +206,12 @@
     setTimeout(() => { if (!isOpen) setOpen(true); }, AUTO_OPEN_DELAY);
   }
 
+  // The web font loads async and can grow text height after the first render —
+  // re-pin to the bottom once it's ready so the latest message isn't clipped.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => scrollToBottom());
+  }
+
   // --- Functions ---
   function toggleWidget() { setOpen(!isOpen); }
 
@@ -233,7 +239,14 @@
       html += '<div class="ns-msg ns-bot"><div class="ns-typing"><span></span><span></span><span></span></div></div>';
     }
     msgContainer.innerHTML = html;
+    scrollToBottom();
+  }
+
+  // Pin to the latest message. Runs now and again next frame so it survives
+  // reflow (e.g. when the web font finishes loading and text grows taller).
+  function scrollToBottom() {
     msgContainer.scrollTop = msgContainer.scrollHeight;
+    requestAnimationFrame(() => { msgContainer.scrollTop = msgContainer.scrollHeight; });
   }
 
   async function sendMessage() {
