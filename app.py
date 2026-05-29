@@ -522,7 +522,11 @@ def health():
 def serve_widget():
     with open("static/widget.js", "r") as f:
         js = f.read()
-    return Response(js, mimetype="application/javascript")
+    resp = Response(js, mimetype="application/javascript")
+    # Always revalidate so widget updates reach client sites without anyone
+    # having to edit (or cache-bust) the embed snippet.
+    resp.headers["Cache-Control"] = "no-cache, must-revalidate"
+    return resp
 
 
 # ---------------------------------------------------------------------------
