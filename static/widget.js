@@ -14,7 +14,7 @@
 
   // Bump this string whenever widget.js changes. Lets you confirm in the
   // browser console exactly which version a site has loaded.
-  var WIDGET_VERSION = "2026.05.29-scrollfix4";
+  var WIDGET_VERSION = "2026.09.15-placeholder";
   console.info("[NovaShift widget] loaded version " + WIDGET_VERSION);
 
   // --- Grab config from script tag ---
@@ -227,6 +227,8 @@
   function updateHeader() {
     const nameEl = root.querySelector(".ns-name");
     if (nameEl) nameEl.textContent = config.business_name;
+    const inputEl = root.querySelector("#ns-chat-input");
+    if (inputEl && config.input_placeholder) inputEl.placeholder = config.input_placeholder;
   }
 
   function renderMessages() {

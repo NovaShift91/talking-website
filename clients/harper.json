@@ -12,6 +12,7 @@
 
   "accent_color": "#1f6feb",
   "widget_position": "bottom-right",
+  "input_placeholder": "Ask about pricing, the library, or Harper Direct...",
   "greeting": "Hi — Harper is a marketing content library built for broadband providers. Are you looking at Harper for your own ISP, or just curious how it works?",
 
   "one_liner": "The broadband industry's smartest marketing library — ready-made campaigns, videos, articles, and social posts that you brand in one click.",

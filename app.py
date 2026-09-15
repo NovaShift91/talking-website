@@ -439,6 +439,7 @@ def get_config(client):
         "greeting": client.get("greeting", "Hey there! How can I help you today?"),
         "accent_color": client.get("accent_color", "#c8a84e"),
         "position": client.get("widget_position", "bottom-right"),
+        "input_placeholder": client.get("input_placeholder", "Ask a question or book an appointment..."),
         "calendar_provider": cal.provider_name,
     })
 
@@ -535,6 +536,22 @@ def serve_widget():
     # having to edit (or cache-bust) the embed snippet.
     resp.headers["Cache-Control"] = "no-cache, must-revalidate"
     return resp
+
+
+# ---------------------------------------------------------------------------
+# Demo pages — showcase landing pages with the widget embedded
+# ---------------------------------------------------------------------------
+
+@app.route("/demo/<client_id>", methods=["GET"])
+def demo_page(client_id):
+    """Serve demos/<client_id>.html, a sample site with the widget embedded."""
+    if not re.fullmatch(r"[a-z0-9_-]+", client_id):
+        return jsonify({"error": "Unknown demo"}), 404
+    path = os.path.join("demos", f"{client_id}.html")
+    if not os.path.exists(path):
+        return jsonify({"error": f"No demo page for client: {client_id}"}), 404
+    with open(path, "r") as f:
+        return Response(f.read(), mimetype="text/html")
 
 
 # ---------------------------------------------------------------------------
