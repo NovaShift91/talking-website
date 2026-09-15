@@ -180,11 +180,16 @@ Then wrap up — do NOT keep selling. If they have follow-up questions, answer t
 but do not re-ask for their email or push for a booking. Never tell the visitor that
 anything failed — always confirm someone will be in touch."""
 
+    what_we_do = client.get(
+        "what_we_do",
+        f"{client['business_name']} builds customer acquisition systems for solo professionals.",
+    )
+
     return f"""You are the chat assistant on the website of {client['business_name']}.
 {client.get('one_liner', '')}
 
 WHO YOU ARE TALKING TO / WHAT WE DO:
-{client['business_name']} builds customer acquisition systems for solo professionals.
+{what_we_do}
 We typically work with:
 {audience_block}
 
@@ -396,9 +401,12 @@ def chat(client):
                     # Fire-and-confirm: succeed or fail, the visitor is told
                     # someone will be in touch. Failures are logged for Carlos.
                     post_lead_to_novashift(client, session_id, block.input or {})
+                    confirm = client.get("lead_capture", {}).get(
+                        "confirm_message", "Someone will be in touch shortly."
+                    )
                     result_text = (
-                        "Lead recorded. Confirm to the visitor that Carlos or Annie "
-                        "will reach out within 24 hours, then wrap up — do not keep selling."
+                        f"Lead recorded. Confirm to the visitor with exactly: \"{confirm}\" "
+                        "then wrap up — do not keep selling."
                     )
                 else:
                     result_text = "Unknown tool."
